@@ -38,7 +38,7 @@ class Settings(BaseSettings):
 
     # Freelance RSS Feed Settings
     habr_rss_url: HttpUrl = Field(
-        default=HttpUrl("https://freelance.habr.com/tasks.rss"),
+        default=HttpUrl("https://freelancehunt.com/projects.rss"),
         description="Habr Freelance RSS tasks feed URL",
     )
     poll_interval_seconds: int = Field(

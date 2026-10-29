@@ -150,7 +150,7 @@ class HabrFreelanceParser:
 
     def __init__(
         self,
-        rss_url: HttpUrl | str = "https://freelance.habr.com/tasks.rss",
+        rss_url: HttpUrl | str = "https://freelancehunt.com/projects.rss",
         timeout: float = 15.0,
     ) -> None:
         self.rss_url = str(rss_url)
@@ -191,3 +191,19 @@ class HabrFreelanceParser:
         except Exception as exc:
             logger.exception("Unexpected error in HabrFreelanceParser: %s", exc)
             return []
+
+
+if __name__ == "__main__":
+    import asyncio
+
+    async def _run():
+        parser = HabrFreelanceParser()
+        orders = await parser.fetch_orders()
+        print(f"\n✅ успешно получено заказов: {len(orders)}\n")
+        for i, o in enumerate(orders[:5], 1):
+            budget = getattr(o, "budget", None) or "по договоренности"
+            print(f"{i}. {o.title}")
+            print(f"   бюджет: {budget}")
+            print(f"   ссылка: {o.url}\n")
+
+    asyncio.run(_run())
